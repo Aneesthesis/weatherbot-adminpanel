@@ -76,7 +76,7 @@ export const fetchAPIToken = () => {
     try {
       dispatch(adminActions.setLoading(true));
       const response = await axios.get(
-        "https://weatherbot-api.onrender.com/bot-token",
+        "https://weatherbot-api.onrender.com/api/bot-token",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
