@@ -11,6 +11,7 @@ const adminSlice = createSlice({
     loading: true,
     error: "",
     api_token: "",
+    tokenExpired: false,
   },
 
   reducers: {
@@ -21,6 +22,10 @@ const adminSlice = createSlice({
 
     setbotToken(state, action) {
       state.api_token = action.payload;
+    },
+
+    setTokenExpired(state, action) {
+      state.tokenExpired = action.payload;
     },
 
     setLoggedIn(state, action) {

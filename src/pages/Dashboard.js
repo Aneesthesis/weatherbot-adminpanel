@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
   const navigate = useNavigate();
   const storeDispatch = useDispatch();
-  const { usersList, loading, error, api_token } = useSelector(
+  const { usersList, loading, error, api_token, tokenExpired } = useSelector(
     (state) => state.admin
   );
 
@@ -21,15 +21,15 @@ function Dashboard() {
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   useEffect(() => {
-    setApiKey(api_token);
-  }, [api_token]);
-
-  useEffect(() => {
     const admin = localStorage.getItem("adminInfo");
-    if (!admin) {
+    if (!admin || tokenExpired) {
       navigate("/");
     }
   }, []);
+
+  useEffect(() => {
+    setApiKey(api_token);
+  }, [api_token]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,6 +105,7 @@ function Dashboard() {
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               onClick={botTokenUpdateHandler}
+              disabled={!isInputFocused || apiKey === api_token}
             >
               Confirm Update
             </button>
