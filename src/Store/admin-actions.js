@@ -4,10 +4,13 @@ import { adminActions } from "./admin-slice";
 export const initiatelogin = (email, password) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://weatherbot-api.onrender.com/api/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.status !== 200) {
         throw new Error("Access Denied! Check Admin Credentials");
@@ -30,7 +33,7 @@ export const fetchUsers = () => {
       console.log(dispatch);
       dispatch(adminActions.setLoading(true));
       const response = await axios.get(
-        "http://localhost:3000/api/admin/users",
+        "https://weatherbot-api.onrender.com/api/admin/users",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -72,11 +75,14 @@ export const fetchAPIToken = () => {
   return async (dispatch) => {
     try {
       dispatch(adminActions.setLoading(true));
-      const response = await axios.get("http://localhost:3000/api/bot-token", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://weatherbot-api.onrender.com/bot-token",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       console.log("fetching users...." + response.data.key);
 
       if (response.status !== 200) {
@@ -102,7 +108,7 @@ export const toggleBlocking = (userId) => {
       adminActions.setLoading(true);
 
       const response = await axios.put(
-        `http://localhost:3000/api/admin/users/${userId}/toggleBlock`,
+        `https://weatherbot-api.onrender.com/api/admin/users/${userId}/toggleBlock`,
         {},
         {
           headers: {
@@ -129,7 +135,7 @@ export const updateAPIToken = (new_api_key) => {
       adminActions.setLoading(true);
 
       const response = await axios.put(
-        `http://localhost:3000/api/bot-token`,
+        `https://weatherbot-api.onrender.com/bot-token`,
         { new_api_key },
         {
           headers: {
