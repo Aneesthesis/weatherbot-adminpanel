@@ -33,8 +33,8 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        storeDispatch(fetchUsers());
-        storeDispatch(fetchAPIToken());
+        await storeDispatch(fetchUsers());
+        await storeDispatch(fetchAPIToken());
       } catch (error) {
         console.error("Error fetching users:", error.message);
       }
