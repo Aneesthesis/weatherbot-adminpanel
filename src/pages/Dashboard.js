@@ -40,10 +40,10 @@ function Dashboard() {
       }
     };
 
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       fetchData();
     }
-  }, [storeDispatch, isLoggedIn]);
+  }, [isLoggedIn]);
 
   const handleToggleBlocking = async (userId) => {
     await storeDispatch(toggleBlocking(userId));
