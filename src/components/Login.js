@@ -17,13 +17,12 @@ const Login = () => {
   const handleLogin = async () => {
     await storeDispatch(initiatelogin(email, password));
 
+     useEffect(() => {
     if (isLoggedIn) {
       console.log(isLoggedIn);
       navigate("/dashboard");
-    } else {
-      console.error("Login failed");
     }
-  };
+  }, [isLoggedIn]);
 
   return (
     <div className="min-h-screen flex items-center justify-around">
