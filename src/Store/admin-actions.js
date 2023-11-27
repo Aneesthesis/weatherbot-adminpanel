@@ -45,6 +45,7 @@ export const fetchUsers = () => {
       if (response.status !== 200) {
         if (response.data.message.includes("expired")) {
           dispatch(adminActions.setTokenExpired(true));
+          dispatch(adminActions.setLoggedIn(false));
 
           throw new Error(
             "Token seems to have expired, logout out and come back!"

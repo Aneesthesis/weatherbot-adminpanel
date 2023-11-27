@@ -13,9 +13,8 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
   const navigate = useNavigate();
   const storeDispatch = useDispatch();
-  const { usersList, loading, error, api_token, tokenExpired } = useSelector(
-    (state) => state.admin
-  );
+  const { usersList, loading, error, api_token, tokenExpired, isLoggedIn } =
+    useSelector((state) => state.admin);
 
   const [apiKey, setApiKey] = useState(api_token);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -41,8 +40,10 @@ function Dashboard() {
       }
     };
 
-    fetchData();
-  }, [storeDispatch]);
+    if (!isLoggedIn) {
+      fetchData();
+    }
+  }, [storeDispatch, isLoggedIn]);
 
   const handleToggleBlocking = async (userId) => {
     await storeDispatch(toggleBlocking(userId));
@@ -65,12 +66,10 @@ function Dashboard() {
     setApiKey(e.target.value);
   }
 
-  // Function to handle input focus
   const handleInputFocus = () => {
     setIsInputFocused(true);
   };
 
-  // Function to handle input blur
   const handleInputBlur = () => {
     setIsInputFocused(false);
   };
